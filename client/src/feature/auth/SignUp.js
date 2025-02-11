@@ -26,13 +26,11 @@ function SignUp() {
 
             const user = await response.json();
             console.log("User Response:", user.message);
-            if (response.ok) {
-                if (user?.success) {
-                    toast.success(user.message);
-                    setData({ name: "", email: "", password: "" });
-                } else {
-                    toast.error(user.message);
-                }
+            if (user?.success === true) {
+                toast.success(user.message);
+                setData({ name: "", email: "", password: "" });
+            } else if (user.success === false) {
+                toast.error(user.message);
             }
         } catch (error) {
             console.error("Error:", error);
