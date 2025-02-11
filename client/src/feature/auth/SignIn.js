@@ -14,14 +14,6 @@ function SignIn() {
         password: "",
     });
 
-    // Check if user is already logged in
-    useEffect(() => {
-        const token = Cookies.get("token");
-        if (token) {
-            navigate("/");
-        }
-    }, [navigate]);
-
     const handleOnChange = (e) => {
         const { name, value } = e.target;
         setData((prev) => ({ ...prev, [name]: value }));
@@ -29,15 +21,11 @@ function SignIn() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         dispatch(loginUser(data))
-        if (userLogin?.success) {
-            toast.success(userLogin.message)
-            navigate("/")
-        } else {
-            toast.error(userLogin?.message)
-        }
+        navigate("/")
     };
+
+    
 
     return (
         <div className="flex justify-center items-center max-w-full min-h-[100vh] bg-slate-300">
