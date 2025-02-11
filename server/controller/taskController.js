@@ -8,7 +8,7 @@ export async function createTask(req, res) {
         console.log(taskName, taskDate, taskDetails)
         const newTask = new taskModel({ userId: req.userId, taskName, taskDate, taskDetails });
         await newTask.save();
-        res.status(201).json({
+        return res.status(201).json({
             message: "Task added",
             success: true
         })

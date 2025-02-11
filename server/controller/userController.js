@@ -46,6 +46,7 @@ export async function SignUp(req, res) {
 export async function SignIn(req, res) {
     try {
         const { email, password } = req.body;
+        console.log(email, password)
         // check user
         const user = await userModel.findOne({ email });
 
@@ -59,10 +60,10 @@ export async function SignIn(req, res) {
 
         const hashedPassword = user.password;
         // compare password
-        const confirmPassword = bcrypt.compare(password, hashedPassword);
+        const confirmPassword = await bcrypt.compare(password, hashedPassword);
 
         if (!confirmPassword) {
-            res.status(400).json({
+            return res.status(400).json({
                 message: "wrong password",
                 success: false
             })
