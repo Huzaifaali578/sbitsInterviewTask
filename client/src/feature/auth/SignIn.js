@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux"; 
+import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
-import Cookies from "js-cookie";
 import { loginUser } from "../../Redux/actions/authActions";
 
 function SignIn() {
@@ -22,10 +21,18 @@ function SignIn() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         dispatch(loginUser(data))
-        navigate("/")
     };
 
-    
+    useEffect(() => {
+        if (userLogin?.success) {
+            toast.success(userLogin?.message)
+            navigate("/")
+        } else {
+            toast.error(userLogin?.message)
+        }
+    }, [userLogin, navigate])
+
+
 
     return (
         <div className="flex justify-center items-center max-w-full min-h-[100vh] bg-slate-300">
